@@ -1,0 +1,48 @@
+<div class="row content">
+  <div class="col-sm-6">
+    <h4> Elections </h4>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="form-group">
+      <%= form_tag root_path, method: :get, remote: true, class: "" do %>
+        <div class="col-sm-4" style="display: inline-block;">
+          <input name="search" type="text" class="form-control form-control-lg"  placeholder="Search">
+        </div>
+        <div class="col-sm-7" style="display: inline-block;">
+          <%= select_tag :sort, options_for_select(Election::SORT_OPTIONS), class: "form-control form-control-lg" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="row content">
+  <div class="col-sm-12">
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Total number of votes</th>
+          <th scope="col">Total number of eligible users</th>
+          <th scope="col">Percentage of user votered</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @elections.each do |election| %>
+          <tr>
+            <td><%= election.name %></td>
+            <td><%= election.category %></td>
+            <td><%= election.votes.count(:id) %></td>
+            <td><%= election.name %></td>
+            <td><%= election.name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
