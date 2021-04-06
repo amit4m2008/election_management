@@ -4,45 +4,28 @@
   </div>
 
   <div class="col-sm-6">
-    <div class="form-group">
-      <%= form_tag root_path, method: :get, remote: true, class: "" do %>
-        <div class="col-sm-4" style="display: inline-block;">
-          <input name="search" type="text" class="form-control form-control-lg"  placeholder="Search">
+    <%= form_tag root_path, method: :get, remote: true, class: "" do %>
+      <div class="form-group">
+        <div class="col-sm-8" style="display: inline-block;">
+          <%= text_field_tag 'search', nil, class: 'form-control form-control-lg', placeholder: "Search elections by name and category" %>
         </div>
-        <div class="col-sm-7" style="display: inline-block;">
-          <%= select_tag :sort, options_for_select(Election::SORT_OPTIONS), class: "form-control form-control-lg" %>
+        <div class="col-sm-3" style="display: inline-block;">
+          <%= submit_tag "search", class: "btn btn-primary" %>
         </div>
-      <% end %>
-    </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-12">
+          <%= select_tag :sort, options_for_select(Election::SORT_OPTIONS), class: "form-control form-control-lg elections-sort", onchange: 'Rails.fire(this.form, "submit")' %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 
 <hr>
 
 <div class="row content">
-  <div class="col-sm-12">
-
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Category</th>
-          <th scope="col">Total number of votes</th>
-          <th scope="col">Total number of eligible users</th>
-          <th scope="col">Percentage of user votered</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @elections.each do |election| %>
-          <tr>
-            <td><%= election.name %></td>
-            <td><%= election.category %></td>
-            <td><%= election.votes.count(:id) %></td>
-            <td><%= election.name %></td>
-            <td><%= election.name %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <div class="col-sm-12" id="electionsTable">
+    <%= render 'elections' %>
   </div>
 </div>

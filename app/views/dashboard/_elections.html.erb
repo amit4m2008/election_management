@@ -1,0 +1,24 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Total number of votes</th>
+      <th scope="col">Total number of eligible users</th>
+      <th scope="col">Percentage of user votered</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @elections.each do |election| %>
+      <tr>
+        <td><%= election.name %></td>
+        <td><%= election.category %></td>
+        <td><%= election.votes.count(:id) %></td>
+        <td><%= election.get_eligible_users.count(:id) %></td>
+        <td>
+          <%= number_to_percentage(election.calculate_user_voted_percentage, precision: 2) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
